@@ -8,8 +8,17 @@
           <div
             class="progress-bar bg-primary progress-bar-striped active"
             style="height: 10px"
-            [style.width]="getPercetage"
             role="progressbar"
+            [ngStyle]="{ width: getProgress1 }"
+          ></div>
+        </div>
+
+        <div class="progress m-t-20">
+          <div
+            class="progress-bar bg-warning progress-bar-striped active"
+            style="height: 10px"
+            role="progressbar"
+            [ngStyle]="{ width: getProgress2 }"
           ></div>
         </div>
       </div>
@@ -21,41 +30,24 @@
   <div class="col-6">
     <div class="card">
       <div class="card-body">
-        <div class="input-group">
-          <span class="input-group-btn">
-            <button
-              class="btn btn-primary"
-              (click)="changeValue(-5)"
-              type="button"
-            >
-              <i class="fa fa-minus"></i>
-            </button>
-          </span>
-
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Product name"
-            [(ngModel)]="progress"
-          />
-
-          <span class="input-group-btn">
-            <button
-              class="btn btn-success"
-              (click)="changeValue(5)"
-              type="button"
-            >
-              <i class="fa fa-plus"></i>
-            </button>
-          </span>
-        </div>
+        <app-increment
+          [progress]="progress1"
+          (onChangeProgress)="progress1 = $event"
+          [btnClass]="'btn-primary'"
+        ></app-increment>
       </div>
     </div>
   </div>
 
   <div class="col-6">
     <div class="card">
-      <div class="card-body"></div>
+      <div class="card-body">
+        <app-increment
+          [progress]="progress2"
+          (onChangeProgress)="progress2 = $event"
+          [btnClass]="'btn-warning'"
+        ></app-increment>
+      </div>
     </div>
   </div>
 </div>
