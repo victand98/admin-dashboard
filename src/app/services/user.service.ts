@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
@@ -26,6 +27,22 @@ export class UserService {
 
   get token(): string {
     return localStorage.getItem('token') || '';
+  }
+
+  validateToken(): Observable<boolean> {
+    return this.http
+      .get(`${base_url}/login/renew`, {
+        headers: {
+          'x-token': this.token,
+        },
+      })
+      .pipe(
+        tap((resp: any) => {
+          this.saveOnLocalStorage(resp.token, resp.menu);
+        }),
+        map((resp) => true),
+        catchError((error) => of(false))
+      );
   }
 
   googleInit() {

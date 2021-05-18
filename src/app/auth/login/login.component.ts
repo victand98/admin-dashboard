@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           localStorage.removeItem('email');
         }
 
-        // Navegar al Dashboard
+        // Navigate to Dashboard
         this.router.navigateByUrl('/');
       },
       (err) => Swal.fire('Error', err.error.msg, 'error')
