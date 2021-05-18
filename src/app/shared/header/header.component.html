@@ -55,7 +55,12 @@
         </li>
         <li class="nav-item">
           <a
-            class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark"
+            class="
+              nav-link
+              sidebartoggler
+              hidden-sm-down
+              waves-effect waves-dark
+            "
             href="javascript:void(0)"
             ><i class="ti-menu"></i
           ></a>
@@ -358,9 +363,9 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a routerLink="/login"
-                  ><i class="fa fa-power-off"></i> Logout</a
-                >
+                <a (click)="logout()" class="cursor">
+                  <i class="fa fa-power-off"></i> Logout
+                </a>
               </li>
             </ul>
           </div>

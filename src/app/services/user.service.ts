@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
 
+import { User } from '../models/user.model';
+
 const base_url = environment.base_url;
 declare const gapi: any;
 
@@ -16,6 +18,7 @@ declare const gapi: any;
 })
 export class UserService {
   public auth2: any;
+  public user: User;
 
   constructor(
     private http: HttpClient,
@@ -38,6 +41,9 @@ export class UserService {
       })
       .pipe(
         tap((resp: any) => {
+          const { email, google, nombre, role, img = '', uid } = resp.user;
+          this.user = new User(nombre, email, '', img, google, role, uid);
+
           this.saveOnLocalStorage(resp.token, resp.menu);
         }),
         map((resp) => true),
@@ -85,6 +91,7 @@ export class UserService {
     localStorage.removeItem('menu');
 
     this.auth2.signOut().then(() => {
+      // ngZone runs Angular processes when third party libraries are running
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
       });

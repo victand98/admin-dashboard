@@ -76,9 +76,9 @@ export class LoginComponent implements OnInit {
       {},
       (googleUser: any) => {
         const id_token = googleUser.getAuthResponse().id_token;
-        // console.log(id_token);
+
         this.userService.loginGoogle(id_token).subscribe((resp) => {
-          // Navegar al Dashboard
+          // Navigate to Dashboard
           this.ngZone.run(() => {
             this.router.navigateByUrl('/');
           });
